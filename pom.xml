@@ -26,8 +26,10 @@
     <parent>
         <groupId>org.apache.struts</groupId>
         <artifactId>struts2-apps</artifactId>
-        <version>2.5.10</version>
+        <version>2.5.17</version>
     </parent>
+    
+    
 
     <artifactId>struts2-rest-showcase</artifactId>
     <packaging>war</packaging>
@@ -36,15 +38,30 @@
 
     <distributionManagement>
        <snapshotRepository>
-    <id>nexus</id>
-    <url>http://18.188.100.16:8081/repository/maven-snapshots/</url>
-    </snapshotRepository>
-     <repository>
-    <id>nexus</id>
-    <url>http://18.188.100.16:8081/repository/maven-releases/</url>
-    </repository>
+	    <id>nexus</id>
+	    <url>http://127.0.0.1:8081/repository/maven-snapshots/</url>
+	    </snapshotRepository>
+	     <repository>
+	    <id>nexus</id>
+	    <url>http://127.0.0.1:8081/repository/maven-releases/</url>
+	    </repository>
     </distributionManagement>
-
+    
+	<pluginRepositories>
+	        <pluginRepository>
+	            <id>apache.snapshots</id>
+	            <url>http://repository.apache.org/snapshots/</url>
+	            <!-- The releases element here is due to an issue in Maven 2.0 that will be
+	                 fixed in future releases. This should be able to be disabled altogether. -->
+	            <releases>
+	                <updatePolicy>daily</updatePolicy>
+	            </releases>
+	            <snapshots>
+	                <updatePolicy>daily</updatePolicy>
+	            </snapshots>
+	        </pluginRepository>
+	</pluginRepositories>
+	
     <dependencies>
         <dependency>
             <groupId>org.apache.struts</groupId>
@@ -73,7 +90,7 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>${log4j2.version}</version>
+            <version>2.8.2</version>
         </dependency>
 
         <dependency>
@@ -112,40 +129,97 @@
 
     <build>
         <finalName>struts2-rest-showcase</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>8.1.16.v20140903</version>
-                <configuration>
-                    <stopKey>CTRL+C</stopKey>
-                    <stopPort>8999</stopPort>
-                    <systemProperties>
-                        <systemProperty>
-                            <name>xwork.loggerFactory</name>
-                            <value>com.opensymphony.xwork2.util.logging.log4j2.Log4j2LoggerFactory</value>
-                        </systemProperty>
-                    </systemProperties>
-                    <scanIntervalSeconds>10</scanIntervalSeconds>
-                    <webAppSourceDirectory>${basedir}/src/main/webapp/</webAppSourceDirectory>
-                    <webAppConfig>
-                        <contextPath>/struts2-rest-showcase</contextPath>
-                        <descriptor>${basedir}/src/main/webapp/WEB-INF/web.xml</descriptor>
-                    </webAppConfig>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>it/**</exclude>
-                        <exclude>**/*$*</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+	        <plugins>
+	            <plugin>
+	                <groupId>org.mortbay.jetty</groupId>
+	                <artifactId>jetty-maven-plugin</artifactId>
+	                <version>8.1.16.v20140903</version>
+	                <configuration>
+	                    <stopKey>CTRL+C</stopKey>
+	                    <stopPort>8999</stopPort>
+	                    <systemProperties>
+	                        <systemProperty>
+	                            <name>xwork.loggerFactory</name>
+	                            <value>com.opensymphony.xwork2.util.logging.log4j2.Log4j2LoggerFactory</value>
+	                        </systemProperty>
+	                    </systemProperties>
+	                    <scanIntervalSeconds>10</scanIntervalSeconds>
+	                    <webAppSourceDirectory>${basedir}/src/main/webapp/</webAppSourceDirectory>
+	                    <webAppConfig>
+	                        <contextPath>/struts2-rest-showcase</contextPath>
+	                        <descriptor>${basedir}/src/main/webapp/WEB-INF/web.xml</descriptor>
+	                    </webAppConfig>
+	                </configuration>
+	            </plugin>
+	            <plugin>
+	                <artifactId>maven-surefire-plugin</artifactId>
+	                <configuration>
+	                    <excludes>
+	                        <exclude>it/**</exclude>
+	                        <exclude>**/*$*</exclude>
+	                    </excludes>
+	                </configuration>
+	            </plugin>
+	            <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+	            <plugin>
+	            	<groupId>org.eclipse.m2e</groupId>
+	            	<artifactId>lifecycle-mapping</artifactId>
+	            	<version>1.0.0</version>
+	            	<configuration>
+	            		<lifecycleMappingMetadata>
+	            			<pluginExecutions>
+	            				<pluginExecution>
+	            					<pluginExecutionFilter>
+	            						<groupId>
+	            							org.apache.maven.plugins
+	            						</groupId>
+	            						<artifactId>
+	            							maven-antrun-plugin
+	            						</artifactId>
+	            						<versionRange>
+	            							[1.7,)
+	            						</versionRange>
+	            						<goals>
+	            							<goal>run</goal>
+	            						</goals>
+	            					</pluginExecutionFilter>
+	            					<action>
+	            						<ignore></ignore>
+	            					</action>
+	            				</pluginExecution>
+	            			</pluginExecutions>
+	            		</lifecycleMappingMetadata>
+	            	</configuration>
+	            </plugin>
+	        </plugins>
+         </pluginManagement>
     </build>
     <properties>
     	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <dependencyManagement>
+    	<dependencies>
+    		<dependency>
+    			<groupId>com.thoughtworks.xstream</groupId>
+    			<artifactId>xstream</artifactId>
+    			<version>1.4.10</version>
+    		</dependency>
+    		<dependency>
+    			<groupId>com.fasterxml.jackson.core</groupId>
+    			<artifactId>jackson-core</artifactId>
+    			<version>2.8.10</version>
+    		</dependency>
+    		<dependency>
+    			<groupId>commons-fileupload</groupId>
+    			<artifactId>commons-fileupload</artifactId>
+    			<version>1.4</version>
+    		</dependency>
+    		<dependency>
+    			<groupId>commons-collections</groupId>
+    			<artifactId>commons-collections</artifactId>
+    			<version>3.2.2</version>
+    		</dependency>
+    	</dependencies>
+    </dependencyManagement>
 </project>
