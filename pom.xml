@@ -75,11 +75,13 @@
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-config-browser-plugin</artifactId>
         </dependency>
+		<!--
         <dependency>
         <groupId>com.lowagie</groupId>
         <artifactId>itext</artifactId>
         <version>4.2.2</version>
     </dependency>
+    -->
 
         <!-- Logging -->
         <dependency>
