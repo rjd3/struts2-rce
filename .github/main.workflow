@@ -7,8 +7,9 @@ action "GitHub Action for Sonatype Nexus" {
   uses = "maurycupitt/GitHub-Actions-for-Sonatype-Nexus-Policy-Evaluations@master"
   secrets = ["authentication"]
   env = {
-    application_id = "struts2-rce"
-    stage = "build"
-    server_url = "http://iq.ngrok.io"
+    SERVER_URL = "http://iq.ngrok.io"
+    STAGE = "build"
+    APPLICATION_ID = "struts2-rce"
+    USE_MAVEN_EVAL = "true"
   }
 }
