@@ -1,6 +1,6 @@
 [![DepShield Badge](https://depshield.sonatype.org/badges/sonatype-nexus-community/struts2-rce/depshield.svg)](https://depshield.github.io)
 
-inc: 8
+inc: 9
 
 ## Exploit Demo for CVE-2017-5638
 
