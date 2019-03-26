@@ -14,5 +14,6 @@ action "GitHub Action for Sonatype Nexus" {
     STAGE = "build"
     APPLICATION_ID = "struts2-rce"
     USE_MAVEN_EVAL = "true"
+    TARGET = "."
   }
 }
