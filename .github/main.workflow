@@ -5,7 +5,10 @@ workflow "Nexus Policy Evaluation" {
 
 action "GitHub Action for Sonatype Nexus" {
   uses = "maurycupitt/GitHub-Actions-for-Sonatype-Nexus-Policy-Evaluations@master"
-  secrets = ["authentication"]
+  secrets = [
+    "IQ_PASSWORD",
+    "IQ_USER",
+  ]
   env = {
     SERVER_URL = "http://iq.ngrok.io"
     STAGE = "build"
