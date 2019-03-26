@@ -4,6 +4,11 @@ workflow "Nexus Policy Evaluation" {
 }
 
 action "GitHub Action for Maven" {
-  uses = "LucaFeger/action-maven-cli@9d8f23af091bd6f5f0c05c942630939b6e53ce44"
-  args = "com.sonatype.clm:clm-maven-plugin:evaluate -Dclm.serverUrl=http://iq.ngrok.io -Dclm.applicationId=struts2-rce -Dclm.stage=build -Dclm.username=admin -Dclm.password=Nexus!23"
+  uses = "/maurycupitt/GitHub-Actions-for-Sonatype-Nexus-Policy-Evaluations@master"
+  secrets = ["authentication"]
+  env = {
+    sever_url = "http://iq.ngrok.io"
+    application_id = "struts2-rce"
+    stage = "build"
+  }
 }
