@@ -23,7 +23,7 @@ node () {
       // Run the maven build
       try{
         if (isUnix()) {
-            sh "./mvnw  -B -Dmaven.test.failure.ignore -Dclm.additionalScopes=test,provided,system -Drat.skip=true -f pom.xml clean package index -U"
+            sh "./mvnw  -B -Dmaven.test.failure.ignore -Dclm.additionalScopes=test,provided,system -Drat.skip=true -f pom.xml clean package com.sonatype.clm:clm-maven-plugin:index -U"
         } else {
            bat(/mvnw.cmd -B -Dmaven.test.failure.ignore -Drat.skip=true clean package/)
         }
