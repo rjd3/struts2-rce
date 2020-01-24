@@ -1,4 +1,3 @@
-/target/
 /.apt_generated/
 .settings/
 .vscode/
@@ -7,5 +6,10 @@
 .sonatype
 .classpath
 .DS_Store
+<<<<<<< HEAD
 .idea/
 /bin/
+=======
+/target/
+*.jar
+>>>>>>> 24900b5ed18304a2a0327f262406c607ecbf8ffd
